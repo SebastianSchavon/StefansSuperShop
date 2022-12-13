@@ -18,4 +18,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Shared\Components\NewsletterViewComponent.cshtml" />
+  </ItemGroup>
+
 </Project>
