@@ -8,4 +8,6 @@ public class Subscribers
     [Key]
     [Column("SubscriberID")]
     public int SubscriberId { get; set; }
+    [Required]
+    public string EmailAddress { get; set; }
 }

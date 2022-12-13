@@ -199,6 +199,11 @@ namespace StefansSuperShop.Data
             {
                 _dbContext.Roles.Add(new IdentityRole { Name = "Customer", NormalizedName = "Customer" });
             }
+            role = _dbContext.Roles.FirstOrDefault(r => r.Name == "Subscriber");
+            if (role == null)
+            {
+                _dbContext.Roles.Add(new IdentityRole { Name = "Subscriber", NormalizedName = "Subscriber" });
+            }
             _dbContext.SaveChanges();
         }
 
