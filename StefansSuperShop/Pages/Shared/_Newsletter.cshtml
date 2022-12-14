@@ -1,5 +1,7 @@
 ﻿@model StefansSuperShop.ViewModels.NewsletterViewModel
 
+
+
 <div id="newsletter" class="section">
     <!-- container -->
     <div class="container">
@@ -10,9 +12,9 @@
                 {
                     <div class="newsletter">
                         <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                        <form asp-action="AddSubscriber" method="post">
-                            <input name="emailAddress" class="input" asp-for="EmailAddress" type="email" placeholder="Enter Your Email">
-                            <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                        <form id="form1">
+                            <input class="input" name="emailAddress" type="email" placeholder="Enter Your Email">
+                            <button type="button" id="btnSubmit" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
                         </form>
                         <ul class="newsletter-follow">
                             <li>
@@ -37,3 +39,36 @@
     </div>
     <!-- /container -->
 </div>
+
+
+<script>
+
+$(document).ready(function(){
+    let $frm = $('#form1');
+    
+     console.log("lol")
+     
+     $('#btnSubmit').click(function (e) {
+         
+         console.log("clicked");
+         
+         e.preventDefault();
+         
+         console.log($frm.attr('page'))
+         
+         $.ajax({
+                 type: 'POST',
+                 dataType:'JSON',
+        url: "/Subscribe/?handler=Subscribe",
+        data: JSON.stringify({ emailAddress: "blablabla" }),
+                 success: function (msg) {
+                    console.log(msg);
+                    console.log('success');
+                 }
+             });
+     });
+    
+});
+
+ 
+</script>

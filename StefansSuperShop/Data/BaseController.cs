@@ -1,32 +1,22 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StefansSuperShop.Data;
-using StefansSuperShop.ViewModels;
 
-namespace StefansSuperShop.Pages.Components;
+namespace StefansSuperShop.Data;
 
-public class NewsletterViewComponent : ViewComponent
+public class BaseController : ControllerBase
 {
     private readonly ApplicationDbContext _dbContext;
     private readonly UserManager<IdentityUser> _userManager;
 
-    public NewsletterViewComponent(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager)
+    public BaseController(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager)
     {
         _dbContext = dbContext;
         _userManager = userManager;
-    }
-
-    public IViewComponentResult Invoke(string emailAddress)
-    {
         
-        
-        return View(new NewsletterViewModel());
     }
-
-
-    public async Task AddSubscriber(string emailAddress)
+    [HttpPost]
+    public async Task<IActionResult> Test(string emailAddress)
     {
         // you might want to put all this logic in another method
         
@@ -39,7 +29,7 @@ public class NewsletterViewComponent : ViewComponent
 
         if (user != null)
             await _userManager.AddToRoleAsync(user, "Subscriber");
-    
 
+        return LocalRedirect("https://localhost:5001");
     }
 }
