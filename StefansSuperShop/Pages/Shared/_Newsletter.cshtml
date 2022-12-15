@@ -12,9 +12,14 @@
                 {
                     <div class="newsletter">
                         <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                        <form id="form1">
+                        <form id="subscribe-form">
+                            @* <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
+                            <label for="emailAddress"></label>
                             <input class="input" name="emailAddress" type="email" placeholder="Enter Your Email">
-                            <button type="button" id="btnSubmit" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                            @* <span asp-validation-for="EmailAddress" class="text-danger"></span> *@
+                            <span id="success-span" class="text-success"></span>
+                            <span id="error-span" class="text-danger"></span>
+                            <button type="submit" id="btnSubmit" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
                         </form>
                         <ul class="newsletter-follow">
                             <li>
@@ -44,31 +49,49 @@
 <script>
 
 $(document).ready(function(){
-    let $frm = $('#form1');
-    
-     console.log("lol")
      
+    
      $('#btnSubmit').click(function (e) {
          
-         console.log("clicked");
+         var data = $("#subscribe-form").serialize();
          
-         e.preventDefault();
+         var successSpan = $("#success-span"); 
+         var errorSpan = $("#error-span");
+          
+         console.log(data);
          
-         console.log($frm.attr('page'))
+        e.preventDefault();
          
+         // $("#subscribe-form").validate({
+         //                                           // define rules for html elements identified by their name 
+         //                                           rules:{
+         //                                               emailAddress:{
+         //                                                   required:true
+         //                                               }
+         //                                           },
+         //                                           // define error messages
+         //                                           messages:{
+         //                                               emailAddress:{
+         //                                                   required: 'Email address required'
+         //                                               }
+         //                                           }
+         //                                       });
+         //
+         //
+        
          $.ajax({
-                 type: 'POST',
-                 dataType:'JSON',
-        url: "/Subscribe/?handler=Subscribe",
-        data: JSON.stringify({ emailAddress: "blablabla" }),
-                 success: function (msg) {
-                    console.log(msg);
-                    console.log('success');
-                 }
-             });
+            type: 'POST',
+            url: "/Subscribe/?handler=Subscribe",  
+            data: data,
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',    
+                success: function (response) {
+                successSpan.html(response)                   
+                    },
+                    error: function (response) {
+                        errorSpan.html(response.responseText)
+                    }
      });
-    
-});
+})});    
 
  
 </script>

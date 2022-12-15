@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using StefansSuperShop.Data;
+using Index = Microsoft.EntityFrameworkCore.Metadata.Internal.Index;
 
 namespace StefansSuperShop.Pages;
 
@@ -21,21 +23,24 @@ public class Subscribe : PageModel
     }
     
 
-    public IActionResult OnPostSubscribe([FromBody]string emailAddress)
+    public async Task<IActionResult> OnPostSubscribe(string emailAddress)
     {
-        // // you might want to put all this logic in another method
-        //
-        // _dbContext.Subscribers.Add(new Subscribers
-        // {
-        //     EmailAddress = emailAddress
-        // });
-        //
-        // var user = await _userManager.FindByEmailAsync(emailAddress);
-        //
-        // if (user != null)
-        //     await _userManager.AddToRoleAsync(user, "Subscriber");
+        var validateEmailRegex = new Regex("^\\S+@\\S+\\.\\S+$");
 
-        return StatusCode(200);
+        if (emailAddress == null || !validateEmailRegex.IsMatch(emailAddress))
+            return BadRequest("Enter valid email address" );
+
+        await _dbContext.Subscribers.AddAsync(new Subscribers
+        {
+            EmailAddress = emailAddress
+        });
+        
+        var user = await _userManager.FindByEmailAsync(emailAddress);
+        
+        if (user != null)
+            await _userManager.AddToRoleAsync(user, "Subscriber");
+        
+        return Content("Thank you!");
     }
 
 }

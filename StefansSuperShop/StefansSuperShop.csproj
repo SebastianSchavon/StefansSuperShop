@@ -20,6 +20,9 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\Shared\Components\NewsletterViewComponent.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
   </ItemGroup>
 
 </Project>

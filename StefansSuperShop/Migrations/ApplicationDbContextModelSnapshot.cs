@@ -569,6 +569,24 @@ namespace StefansSuperShop.Migrations
                     b.ToTable("Shippers");
                 });
 
+            modelBuilder.Entity("StefansSuperShop.Data.Subscribers", b =>
+                {
+                    b.Property<int>("SubscriberId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("SubscriberID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubscriberId"), 1L, 1);
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SubscriberId");
+
+                    b.ToTable("Subscribers");
+                });
+
             modelBuilder.Entity("StefansSuperShop.Data.Suppliers", b =>
                 {
                     b.Property<int>("SupplierId")
