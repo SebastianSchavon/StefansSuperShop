@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +19,16 @@ public class NewsletterViewComponent : ViewComponent
         _userManager = userManager;
     }
 
-    public IViewComponentResult Invoke(string emailAddress)
+    public IViewComponentResult Invoke()
     {
-        
-        
         return View(new NewsletterViewModel());
     }
 
-
+    public bool IsInAnyRole(IPrincipal principal, params string[] roles)
+    {
+        return roles.Any(principal.IsInRole);
+    }
+    
     public async Task AddSubscriber(string emailAddress)
     {
         // you might want to put all this logic in another method

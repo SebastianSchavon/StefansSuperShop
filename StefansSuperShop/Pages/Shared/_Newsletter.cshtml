@@ -1,4 +1,6 @@
-﻿@model StefansSuperShop.ViewModels.NewsletterViewModel
+﻿@using StefansSuperShop.Helpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model StefansSuperShop.ViewModels.NewsletterViewModel
 
 
 
@@ -8,7 +10,7 @@
         <!-- row -->
         <div class="row">
             <div class="col-md-12">
-                @if (!User.IsInRole("Subscriber"))
+                @if (!User.IsInAnyRole("Admin", "Subscriber"))
                 {
                     <div class="newsletter">
                         <p>Sign Up for the <strong>NEWSLETTER</strong></p>
