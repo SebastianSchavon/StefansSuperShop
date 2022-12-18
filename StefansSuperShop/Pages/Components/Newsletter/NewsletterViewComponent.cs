@@ -21,7 +21,7 @@ public class NewsletterViewComponent : ViewComponent
 
     public IViewComponentResult Invoke()
     {
-        return View(new NewsletterViewModel());
+        return View(new SubscribeToNewsletterViewModel());
     }
 
     public bool IsInAnyRole(IPrincipal principal, params string[] roles)

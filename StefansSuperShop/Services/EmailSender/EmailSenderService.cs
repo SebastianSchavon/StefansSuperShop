@@ -6,7 +6,7 @@ using MailKit.Net.Smtp;
 
 namespace StefansSuperShop.Services.EmailSender;
 
-public class EmailSenderService
+public class EmailSenderService : IEmailSenderService
 {
     private readonly MailSettings _settings;
 

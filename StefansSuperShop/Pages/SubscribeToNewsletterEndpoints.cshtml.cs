@@ -11,12 +11,12 @@ using Index = Microsoft.EntityFrameworkCore.Metadata.Internal.Index;
 namespace StefansSuperShop.Pages;
 
 [IgnoreAntiforgeryToken]
-public class Subscribe : PageModel
+public class SubscribeToNewsletterEndpoints : PageModel
 {
     private readonly ApplicationDbContext _dbContext;
     private readonly UserManager<IdentityUser> _userManager;
 
-    public Subscribe(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager)
+    public SubscribeToNewsletterEndpoints(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager)
     {
         _dbContext = dbContext;
         _userManager = userManager;

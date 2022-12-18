@@ -2,7 +2,7 @@
 
 namespace StefansSuperShop.ViewModels;
 
-public class NewsletterViewModel
+public class SubscribeToNewsletterViewModel
 {
     [Required(ErrorMessage = "Email address required")]
     public string EmailAddress { get; set; }

@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StefansSuperShop.Data;
+using StefansSuperShop.Repositories.Newsletter;
+using StefansSuperShop.Services.EmailSender;
 
 namespace StefansSuperShop;
 
@@ -28,6 +30,8 @@ public class Startup
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
         services.AddTransient<DataInitializer>();
+        services.AddSingleton<IEmailSenderService, EmailSenderService>();
+        services.AddSingleton<INewsletterRepository, INewsletterRepository>();
         services.AddRazorPages();
     }
 
