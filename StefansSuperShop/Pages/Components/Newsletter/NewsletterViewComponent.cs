@@ -33,7 +33,7 @@ public class NewsletterViewComponent : ViewComponent
     {
         // you might want to put all this logic in another method
         
-        _dbContext.Subscribers.Add(new Subscribers
+        _dbContext.Subscribers.Add(new Subscriber
         {
             EmailAddress = emailAddress
         });

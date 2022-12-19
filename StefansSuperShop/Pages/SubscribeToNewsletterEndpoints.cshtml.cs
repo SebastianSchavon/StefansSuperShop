@@ -30,7 +30,7 @@ public class SubscribeToNewsletterEndpoints : PageModel
         if (emailAddress == null || !validateEmailRegex.IsMatch(emailAddress))
             return BadRequest("Enter valid email address" );
 
-        await _dbContext.Subscribers.AddAsync(new Subscribers
+        await _dbContext.Subscribers.AddAsync(new Subscriber
         {
             EmailAddress = emailAddress
         });

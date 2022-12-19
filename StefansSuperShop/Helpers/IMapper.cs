@@ -5,5 +5,5 @@ namespace StefansSuperShop.Helpers;
 
 public interface IMapper
 {
-    Newsletters MapNewsletterDto(NewsletterDto newsletterDto);
+    Newsletter MapNewsletterForCreation(NewsletterDto newsletterDto);
 }

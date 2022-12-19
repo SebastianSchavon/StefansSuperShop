@@ -17,7 +17,7 @@ namespace StefansSuperShop.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.11")
+                .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -383,6 +383,32 @@ namespace StefansSuperShop.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("StefansSuperShop.Data.Newsletter", b =>
+                {
+                    b.Property<int>("NewsLetterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("NewsletterID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NewsLetterId"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("NewsletterSent")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NewsLetterId");
+
+                    b.ToTable("Newsletters");
+                });
+
             modelBuilder.Entity("StefansSuperShop.Data.OrderDetails", b =>
                 {
                     b.Property<int>("OrderId")
@@ -569,7 +595,7 @@ namespace StefansSuperShop.Migrations
                     b.ToTable("Shippers");
                 });
 
-            modelBuilder.Entity("StefansSuperShop.Data.Subscribers", b =>
+            modelBuilder.Entity("StefansSuperShop.Data.Subscriber", b =>
                 {
                     b.Property<int>("SubscriberId")
                         .ValueGeneratedOnAdd()
@@ -582,7 +608,12 @@ namespace StefansSuperShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("NewsLetterId")
+                        .HasColumnType("int");
+
                     b.HasKey("SubscriberId");
+
+                    b.HasIndex("NewsLetterId");
 
                     b.ToTable("Subscribers");
                 });
@@ -783,6 +814,13 @@ namespace StefansSuperShop.Migrations
                     b.Navigation("Supplier");
                 });
 
+            modelBuilder.Entity("StefansSuperShop.Data.Subscriber", b =>
+                {
+                    b.HasOne("StefansSuperShop.Data.Newsletter", null)
+                        .WithMany("SubscribersWhoReceivedNewsletter")
+                        .HasForeignKey("NewsLetterId");
+                });
+
             modelBuilder.Entity("StefansSuperShop.Data.Territories", b =>
                 {
                     b.HasOne("StefansSuperShop.Data.Region", "Region")
@@ -809,6 +847,11 @@ namespace StefansSuperShop.Migrations
                     b.Navigation("InverseReportsToNavigation");
 
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("StefansSuperShop.Data.Newsletter", b =>
+                {
+                    b.Navigation("SubscribersWhoReceivedNewsletter");
                 });
 
             modelBuilder.Entity("StefansSuperShop.Data.Orders", b =>

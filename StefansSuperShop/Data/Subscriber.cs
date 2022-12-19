@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StefansSuperShop.Data;
 
-public class Subscribers
+public class Subscriber
 {
     [Key]
     [Column("SubscriberID")]

@@ -6,7 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StefansSuperShop.Data;
-using StefansSuperShop.Repositories.Newsletter;
+using StefansSuperShop.Repositories;
+using StefansSuperShop.Repositories.Subscriber;
 using StefansSuperShop.Services.EmailSender;
 
 namespace StefansSuperShop;
@@ -18,7 +19,7 @@ public class Startup
         Configuration = configuration;
     }
 
-    public IConfiguration Configuration { get; }
+    private IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
@@ -30,8 +31,9 @@ public class Startup
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
         services.AddTransient<DataInitializer>();
-        services.AddSingleton<IEmailSenderService, EmailSenderService>();
-        services.AddSingleton<INewsletterRepository, INewsletterRepository>();
+        services.AddScoped<IEmailSenderService, EmailSenderService>();
+        services.AddScoped<INewsletterRepository, NewsletterRepository>();
+        services.AddScoped<ISubscriberRepository, SubscriberRepository>();
         services.AddRazorPages();
     }
 

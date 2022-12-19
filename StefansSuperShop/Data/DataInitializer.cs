@@ -24,8 +24,49 @@ namespace StefansSuperShop.Data
             SeedUsers();
             SeedCategories();
             SeedProducts();
+            SeedSubscribers();
+            SeedNewsletters();
         }
 
+        private void SeedSubscribers()
+        {
+            AddSubscriber("gustaf@gmail.se");
+            AddSubscriber("johan@outlook.se");
+            AddSubscriber("erika@outlook.com");
+            AddSubscriber("johanna@yahoo.com");
+            _dbContext.SaveChanges();
+        }
+
+        private void AddSubscriber(string emailAddress)
+        {
+            if (_dbContext.Subscribers.Any(s => s.EmailAddress == emailAddress)) return;
+            _dbContext.Subscribers.Add(new Subscriber()
+            {
+                EmailAddress = emailAddress
+            });
+        }
+        
+        private void SeedNewsletters()
+        {
+            AddNewsletter("This is the first title", "this is some nice content", DateTime.Now, false);
+            AddNewsletter("This is the second title", "this is also some nice content", DateTime.Now, false);
+            AddNewsletter("This is the third title", "this is also also some nice content", DateTime.Now, false);
+            AddNewsletter("This is the fourth title", "this is also also also some nice content", DateTime.Now, false);
+            _dbContext.SaveChanges();
+        }
+
+        private void AddNewsletter(string title, string content, DateTime createdDate, bool newsletterSent)
+        {
+            if (_dbContext.Newsletters.Any(n => n.Title == title))return;
+            _dbContext.Newsletters.Add(new Newsletter
+            {
+                Title = title,
+                Content = content,
+                CreatedDate = createdDate,
+                NewsletterSent = newsletterSent
+            });
+        }
+        
         private void SeedProducts()
         {
             addProduct("Beverages", "Chai", 18, 39, "Fantastic");

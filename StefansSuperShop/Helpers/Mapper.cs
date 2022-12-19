@@ -5,14 +5,16 @@ namespace StefansSuperShop.Helpers;
 
 public class Mapper : IMapper
 {
-    public Newsletters MapNewsletterDto(NewsletterDto newsletterDto)
+    public Newsletter MapNewsletterForCreation(NewsletterDto newsletterDto)
     {
-        return new Newsletters()
+        return new Newsletter()
         {
-            // create mapping class
             Content = newsletterDto.Content,
+            Title = newsletterDto.Title, 
             NewsletterSent = newsletterDto.NewsletterSent,
             SubscribersWhoReceivedNewsletter = newsletterDto.SubscribersWhoReceivedNewsletter
         };
     }
+    
+
 }

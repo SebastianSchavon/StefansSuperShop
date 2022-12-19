@@ -1,0 +1,22 @@
+﻿@page
+@model StefansSuperShop.Pages.Admin.NewsletterEditModel
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Newsletter.Title">Email address</label>
+        <input asp-for="Newsletter.Title" class="form-control" value="@Model.Newsletter.Title">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Newsletter.Content">Example textarea</label>
+        <textarea asp-for="Newsletter.Content" class="form-control" rows="3">@Model.Newsletter.Content</textarea>
+    </div>
+    
+    <input hidden="hidden" asp-for="Newsletter.CreatedDate"/>
+    <input hidden="hidden" asp-for="Newsletter.NewsLetterId"/>
+
+    <td>
+        <button type="submit" asp-page-handler="EditNewsletter" class="btn btn-success">Edit</button>
+    </td>
+
+</form>
