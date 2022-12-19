@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StefansSuperShop.Data;
 using StefansSuperShop.Repositories;
@@ -33,7 +34,7 @@ public class NewslettersModel : PageModel
 
     // pass id of newsletter to send
     // check if newsletter is already sent
-    public async Task OnPostSendNewsletter(int newsletterId)
+    public async Task<IActionResult> OnPostSendNewsletter(int newsletterId)
     {
         var newsletter = _newsletterRepository.GetNewsletter(newsletterId);
 
@@ -51,6 +52,8 @@ public class NewslettersModel : PageModel
         newsletter.NewsletterSent = true;
 
         await _newsletterRepository.EditNewsletterAsync(newsletter);
+
+        return Redirect("./Newsletters");
     }
 
     // public async Task<IEnumerable<Newsletter>> GetSentNewsletters()

@@ -5,12 +5,12 @@
 
 <form method="post">
     <div class="form-group">
-        <label asp-for="Newsletter.Title">Email address</label>
+        <label asp-for="Newsletter.Title">Title</label>
         <input asp-for="Newsletter.Title" class="form-control" value="@Model.Newsletter.Title">
     </div>
 
     <div class="form-group">
-        <label asp-for="Newsletter.Content">Example textarea</label>
+        <label asp-for="Newsletter.Content">Content</label>
         <textarea asp-for="Newsletter.Content" class="form-control" rows="3">@Model.Newsletter.Content</textarea>
     </div>
     
@@ -27,7 +27,7 @@
     
     <td>
         <a asp-page="./Newsletters" class="btn btn-danger">Return</a>
-        <button type="submit" asp-page-handler="EditNewsletter" class="btn btn-success">Edit</button>
+        <button type="submit" asp-page-handler="EditNewsletter" class="btn btn-success">Save</button>
     </td>
 
 </form>

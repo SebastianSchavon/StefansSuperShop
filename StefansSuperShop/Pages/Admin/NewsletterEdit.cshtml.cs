@@ -30,6 +30,7 @@ public class NewsletterEditModel : PageModel
     public async Task<IActionResult> OnPostEditNewsletter()
     {
         Newsletter.CreatedDate = DateTime.Now;
+        Newsletter.NewsletterSent = false;
         
         await _newsletterRepository.EditNewsletterAsync(Newsletter);
 
