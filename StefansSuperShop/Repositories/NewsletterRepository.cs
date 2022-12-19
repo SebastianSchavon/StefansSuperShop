@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using StefansSuperShop.Data;
 
 
@@ -16,12 +18,12 @@ public class NewsletterRepository : INewsletterRepository
 
     public Newsletter GetNewsletter(int newsletterId)
     {
-        return _dbContext.Newsletters.Find(newsletterId);
+        return _dbContext.Newsletters.Include(x => x.SubscribersWhoReceivedNewsletter).FirstOrDefault(x => x.NewsLetterId == newsletterId);
     }
     
     public IEnumerable<Newsletter> GetNewsletters()
     {
-        return _dbContext.Newsletters;
+        return _dbContext.Newsletters.Include(x => x.SubscribersWhoReceivedNewsletter);
     }
     
     // dont send email after creation, just add to database as "not sent" 

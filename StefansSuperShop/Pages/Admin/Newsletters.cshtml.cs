@@ -11,22 +11,23 @@ namespace StefansSuperShop.Pages.Admin;
 public class NewslettersModel : PageModel
 {
     public List<Newsletter> Newsletters { get; set; }
-    
+
     private readonly INewsletterRepository _newsletterRepository;
     private readonly ISubscriberRepository _subscriberRepository;
     private readonly IEmailSenderService _emailSenderService;
 
-    public NewslettersModel(INewsletterRepository newsletterRepository, ISubscriberRepository subscriberRepository, IEmailSenderService emailSenderService)
+    public NewslettersModel(INewsletterRepository newsletterRepository, ISubscriberRepository subscriberRepository,
+        IEmailSenderService emailSenderService)
     {
         _newsletterRepository = newsletterRepository;
         _subscriberRepository = subscriberRepository;
         _emailSenderService = emailSenderService;
     }
-    
+
     public async void OnGet()
     {
         var newsletters = _newsletterRepository.GetNewsletters();
-        
+
         Newsletters = newsletters.ToList();
     }
 
@@ -35,11 +36,13 @@ public class NewslettersModel : PageModel
     public async Task OnPostSendNewsletter(int newsletterId)
     {
         var newsletter = _newsletterRepository.GetNewsletter(newsletterId);
-        
-        if(newsletter.NewsletterSent)
-            // display message that tells admin that the newsletter is already sent? send again?
-        
-        foreach (var subscriber in await _subscriberRepository.GetSubscribers())
+
+        if (newsletter.NewsletterSent) ;
+        // display message that tells admin that the newsletter is already sent? send again?
+
+        var subscribers = await _subscriberRepository.GetSubscribers();
+
+        foreach (var subscriber in subscribers)
         {
             _emailSenderService.SendEmail("stefan@newsletter.com", newsletter.Title, newsletter.Content);
             newsletter.SubscribersWhoReceivedNewsletter.Add(subscriber);

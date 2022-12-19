@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StefansSuperShop.Data;
+using StefansSuperShop.Models.Options;
 using StefansSuperShop.Repositories;
 using StefansSuperShop.Repositories.Subscriber;
 using StefansSuperShop.Services.EmailSender;
@@ -30,6 +31,9 @@ public class Startup
         services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+        
+        services.Configure<MailSettings>(Configuration.GetSection(nameof(MailSettings)));
+        
         services.AddTransient<DataInitializer>();
         services.AddScoped<IEmailSenderService, EmailSenderService>();
         services.AddScoped<INewsletterRepository, NewsletterRepository>();

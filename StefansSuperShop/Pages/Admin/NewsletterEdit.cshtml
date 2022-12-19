@@ -1,4 +1,6 @@
 ﻿@page
+@using StefansSuperShop.Data
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model StefansSuperShop.Pages.Admin.NewsletterEditModel
 
 <form method="post">
@@ -14,8 +16,17 @@
     
     <input hidden="hidden" asp-for="Newsletter.CreatedDate"/>
     <input hidden="hidden" asp-for="Newsletter.NewsLetterId"/>
-
+    
+    <br/>
+    
+    <h5>Recieved list</h5>
+    @foreach (var subscriber in @Model.Newsletter.SubscribersWhoReceivedNewsletter)
+    {
+        <p>@subscriber.EmailAddress</p>
+    }
+    
     <td>
+        <a asp-page="./Newsletters" class="btn btn-danger">Return</a>
         <button type="submit" asp-page-handler="EditNewsletter" class="btn btn-success">Edit</button>
     </td>
 
