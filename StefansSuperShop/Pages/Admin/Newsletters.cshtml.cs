@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StefansSuperShop.Data;
@@ -9,6 +10,7 @@ using StefansSuperShop.Services.EmailSender;
 
 namespace StefansSuperShop.Pages.Admin;
 
+[Authorize(Roles = "Admin")]
 public class NewslettersModel : PageModel
 {
     public List<Newsletter> Newsletters { get; set; }
@@ -47,6 +49,7 @@ public class NewslettersModel : PageModel
         {
             _emailSenderService.SendEmail("stefan@newsletter.com", newsletter.Title, newsletter.Content);
             newsletter.SubscribersWhoReceivedNewsletter.Add(subscriber);
+            subscriber.ReceivedNewsletters.Add(newsletter);
         }
 
         newsletter.NewsletterSent = true;

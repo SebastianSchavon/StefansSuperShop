@@ -224,6 +224,21 @@ namespace StefansSuperShop.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("NewsletterSubscriber", b =>
+                {
+                    b.Property<int>("ReceivedNewslettersNewsLetterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubscribersWhoReceivedNewsletterSubscriberId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReceivedNewslettersNewsLetterId", "SubscribersWhoReceivedNewsletterSubscriberId");
+
+                    b.HasIndex("SubscribersWhoReceivedNewsletterSubscriberId");
+
+                    b.ToTable("NewsletterSubscriber");
+                });
+
             modelBuilder.Entity("StefansSuperShop.Data.Categories", b =>
                 {
                     b.Property<int>("CategoryId")
@@ -608,12 +623,7 @@ namespace StefansSuperShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NewsLetterId")
-                        .HasColumnType("int");
-
                     b.HasKey("SubscriberId");
-
-                    b.HasIndex("NewsLetterId");
 
                     b.ToTable("Subscribers");
                 });
@@ -750,6 +760,21 @@ namespace StefansSuperShop.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NewsletterSubscriber", b =>
+                {
+                    b.HasOne("StefansSuperShop.Data.Newsletter", null)
+                        .WithMany()
+                        .HasForeignKey("ReceivedNewslettersNewsLetterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StefansSuperShop.Data.Subscriber", null)
+                        .WithMany()
+                        .HasForeignKey("SubscribersWhoReceivedNewsletterSubscriberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("StefansSuperShop.Data.Employees", b =>
                 {
                     b.HasOne("StefansSuperShop.Data.Employees", "ReportsToNavigation")
@@ -814,13 +839,6 @@ namespace StefansSuperShop.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("StefansSuperShop.Data.Subscriber", b =>
-                {
-                    b.HasOne("StefansSuperShop.Data.Newsletter", null)
-                        .WithMany("SubscribersWhoReceivedNewsletter")
-                        .HasForeignKey("NewsLetterId");
-                });
-
             modelBuilder.Entity("StefansSuperShop.Data.Territories", b =>
                 {
                     b.HasOne("StefansSuperShop.Data.Region", "Region")
@@ -847,11 +865,6 @@ namespace StefansSuperShop.Migrations
                     b.Navigation("InverseReportsToNavigation");
 
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("StefansSuperShop.Data.Newsletter", b =>
-                {
-                    b.Navigation("SubscribersWhoReceivedNewsletter");
                 });
 
             modelBuilder.Entity("StefansSuperShop.Data.Orders", b =>

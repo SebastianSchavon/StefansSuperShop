@@ -8,7 +8,6 @@ using Microsoft.Extensions.Hosting;
 using StefansSuperShop.Data;
 using StefansSuperShop.Models.Options;
 using StefansSuperShop.Repositories;
-using StefansSuperShop.Repositories.Subscriber;
 using StefansSuperShop.Services.EmailSender;
 
 namespace StefansSuperShop;

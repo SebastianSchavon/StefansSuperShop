@@ -19,14 +19,10 @@ public class EmailSenderService : IEmailSenderService
     {
         var mail = new MimeMessage();
 
-        // // Sender
-        // mail.From.Add(new MailboxAddress(_settings.DisplayName, _settings.From));
         mail.Sender = new MailboxAddress(_settings.DisplayName, _settings.From);
 
-        // Receiver
         mail.To.Add(MailboxAddress.Parse("billgates@microsoft.com"));
         
-        // Add Content to Mime Message
         var body = new BodyBuilder();
         mail.Subject = header;
         body.HtmlBody = message;

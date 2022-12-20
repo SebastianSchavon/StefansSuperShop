@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StefansSuperShop.Data;
@@ -7,6 +8,7 @@ using StefansSuperShop.Repositories;
 
 namespace StefansSuperShop.Pages.Admin;
 
+[Authorize(Roles = "Admin")]
 public class NewsletterCreateModel : PageModel
 {
     [BindProperty]

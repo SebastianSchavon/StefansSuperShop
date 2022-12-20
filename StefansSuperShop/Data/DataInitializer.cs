@@ -49,14 +49,12 @@ namespace StefansSuperShop.Data
         
         private void SeedNewsletters()
         {
-            AddNewsletter("This is the first title", "this is some nice content", DateTime.Now, false, new List<Subscriber>());
-            AddNewsletter("This is the second title", "this is also some nice content", DateTime.Now, false, new List<Subscriber>());
-            AddNewsletter("This is the third title", "this is also also some nice content", DateTime.Now, false,new List<Subscriber>());
-            AddNewsletter("This is the fourth title", "this is also also also some nice content", DateTime.Now, false,new List<Subscriber>());
+            AddNewsletter("Very important message", "Very important information", DateTime.Now, false);
+          
             _dbContext.SaveChanges();
         }
 
-        private void AddNewsletter(string title, string content, DateTime createdDate, bool newsletterSent, List<Subscriber> subscribersWhoRecievedNewsletter)
+        private void AddNewsletter(string title, string content, DateTime createdDate, bool newsletterSent)
         {
             if (_dbContext.Newsletters.Any(n => n.Title == title))return;
             _dbContext.Newsletters.Add(new Newsletter
@@ -64,8 +62,7 @@ namespace StefansSuperShop.Data
                 Title = title,
                 Content = content,
                 CreatedDate = createdDate,
-                NewsletterSent = newsletterSent,
-                SubscribersWhoReceivedNewsletter = subscribersWhoRecievedNewsletter
+                NewsletterSent = newsletterSent
             });
         }
         

@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Principal;
+using Microsoft.AspNetCore.Identity;
 
 namespace StefansSuperShop.Helpers;
 

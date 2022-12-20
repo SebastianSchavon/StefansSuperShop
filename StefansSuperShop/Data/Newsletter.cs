@@ -14,5 +14,5 @@ public class Newsletter
     public string Content { get; set; }
     public DateTime CreatedDate { get; set; }
     public bool NewsletterSent { get; set; }
-    public List<Subscriber> SubscribersWhoReceivedNewsletter { get; set; }
+    public virtual List<Subscriber> SubscribersWhoReceivedNewsletter { get; set; }
 }
