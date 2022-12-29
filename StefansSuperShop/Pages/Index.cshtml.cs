@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using StefansSuperShop.Data;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace StefansSuperShop.Pages
 {
@@ -29,6 +30,7 @@ namespace StefansSuperShop.Pages
             public string Category { get; set; }
             public int Id { get; set; }
             public string Name { get; set; }
+            public decimal? Price { get; set; }
         }
         public List<Category> Categories { get; set; }
         public class Category
@@ -57,5 +59,18 @@ namespace StefansSuperShop.Pages
             return Categories;
         }
         
+
+        public ApplicationDbContext Get_context()
+        {
+            return _context;
+        }
+
+        public List<Product> GetNewProducts()
+        {
+            NewProducts = _context.Products.OrderByDescending(p => p.ProductId).Take(10)
+                .Select(p => new Product { Id = p.ProductId, Name = p.ProductName, Price = p.UnitPrice})
+                .ToList();
+            return NewProducts;
+        }
     }
 }
