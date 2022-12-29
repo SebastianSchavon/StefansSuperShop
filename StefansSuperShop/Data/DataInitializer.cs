@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
@@ -24,8 +25,47 @@ namespace StefansSuperShop.Data
             SeedUsers();
             SeedCategories();
             SeedProducts();
+            SeedSubscribers();
+            SeedNewsletters();
         }
 
+        private void SeedSubscribers()
+        {
+            AddSubscriber("gustaf@gmail.se");
+            AddSubscriber("johan@outlook.se");
+            AddSubscriber("erika@outlook.com");
+            AddSubscriber("johanna@yahoo.com");
+            _dbContext.SaveChanges();
+        }
+
+        private void AddSubscriber(string emailAddress)
+        {
+            if (_dbContext.Subscribers.Any(s => s.EmailAddress == emailAddress)) return;
+            _dbContext.Subscribers.Add(new Subscriber()
+            {
+                EmailAddress = emailAddress
+            });
+        }
+        
+        private void SeedNewsletters()
+        {
+            AddNewsletter("Very important message", "Very important information", DateTime.Now, false);
+          
+            _dbContext.SaveChanges();
+        }
+
+        private void AddNewsletter(string title, string content, DateTime createdDate, bool newsletterSent)
+        {
+            if (_dbContext.Newsletters.Any(n => n.Title == title))return;
+            _dbContext.Newsletters.Add(new Newsletter
+            {
+                Title = title,
+                Content = content,
+                CreatedDate = createdDate,
+                NewsletterSent = newsletterSent
+            });
+        }
+        
         private void SeedProducts()
         {
             addProduct("Beverages", "Chai", 18, 39, "Fantastic");
@@ -110,7 +150,7 @@ namespace StefansSuperShop.Data
 
         private void addProduct(string category, string name, int pris, int stocklevel, string description)
         {
-            if (!_dbContext.Products.Any(e => e.ProductName == name)) return;
+            if (_dbContext.Products.Any(e => e.ProductName == name)) return;
             _dbContext.Products.Add(new Products
             {
                 ProductName = name,
@@ -198,6 +238,11 @@ namespace StefansSuperShop.Data
             if (role == null)
             {
                 _dbContext.Roles.Add(new IdentityRole { Name = "Customer", NormalizedName = "Customer" });
+            }
+            role = _dbContext.Roles.FirstOrDefault(r => r.Name == "Subscriber");
+            if (role == null)
+            {
+                _dbContext.Roles.Add(new IdentityRole { Name = "Subscriber", NormalizedName = "Subscriber" });
             }
             _dbContext.SaveChanges();
         }
