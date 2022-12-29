@@ -110,7 +110,7 @@ namespace StefansSuperShop.Data
 
         private void addProduct(string category, string name, int pris, int stocklevel, string description)
         {
-            if (!_dbContext.Products.Any(e => e.ProductName == name)) return;
+            //if (!_dbContext.Products.Any(e => e.ProductName == name)) return;
             _dbContext.Products.Add(new Products
             {
                 ProductName = name,
@@ -136,7 +136,7 @@ namespace StefansSuperShop.Data
 
         private void AddCategoryIfNotExists(string name, string description)
         {
-            if (_dbContext.Categories.Any(e => e.CategoryName == name)) return;
+            //if (_dbContext.Categories.Any(e => e.CategoryName == name)) return;
             _dbContext.Categories.Add(new Categories
             {
                 CategoryName = name, Description = description,
