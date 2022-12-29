@@ -1,0 +1,97 @@
+﻿@model StefansSuperShop.ViewModels.SubscribeToNewsletterViewModel
+
+
+
+<div id="newsletter" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                @if (!User.IsInRole("Admin") !| !User.IsInRole("Subscriber"))
+                {
+                    <div class="newsletter">
+                        <p>Sign Up for the <strong>NEWSLETTER</strong></p>
+                        <form id="subscribe-form">
+                            @* <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
+                            <label for="emailAddress"></label>
+                            <input class="input" name="emailAddress" type="email" placeholder="Enter Your Email">
+                            @* <span asp-validation-for="EmailAddress" class="text-danger"></span> *@
+                            <span id="success-span" class="text-success"></span>
+                            <span id="error-span" class="text-danger"></span>
+                            <button type="submit" id="btnSubmit" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                        </form>
+                        <ul class="newsletter-follow">
+                            <li>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                   
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
+
+<script>
+
+$(document).ready(function(){
+     
+    
+     $('#btnSubmit').click(function (e) {
+         
+         var data = $("#subscribe-form").serialize();
+         
+         var successSpan = $("#success-span"); 
+         var errorSpan = $("#error-span");
+          
+         console.log(data);
+         
+        e.preventDefault();
+         
+         // $("#subscribe-form").validate({
+         //                                           // define rules for html elements identified by their name 
+         //                                           rules:{
+         //                                               emailAddress:{
+         //                                                   required:true
+         //                                               }
+         //                                           },
+         //                                           // define error messages
+         //                                           messages:{
+         //                                               emailAddress:{
+         //                                                   required: 'Email address required'
+         //                                               }
+         //                                           }
+         //                                       });
+         //
+         //
+        
+         $.ajax({
+            type: 'POST',
+            url: "/Subscribe/?handler=Subscribe",  
+            data: data,
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',    
+                success: function (response) {
+                successSpan.html(response)                   
+                    },
+                    error: function (response) {
+                        errorSpan.html(response.responseText)
+                    }
+     });
+})});    
+
+ 
+</script>

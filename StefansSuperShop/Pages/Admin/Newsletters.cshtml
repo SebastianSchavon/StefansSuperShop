@@ -1,0 +1,43 @@
+﻿@page
+@using StefansSuperShop.Data
+@model StefansSuperShop.Pages.Admin.NewslettersModel
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Last edited</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Send</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var newsletter in Model.Newsletters)
+    {
+        <tr>
+            <td>@newsletter.Title</td>
+            <td>@newsletter.CreatedDate</td>
+            <td>
+
+                <a asp-page="./NewsletterEdit" asp-route-newsletterId="@newsletter.NewsLetterId" class="btn btn-primary" >Edit</a>
+
+            </td>
+            @if (newsletter.NewsletterSent)
+            {
+                <td>
+                    <a disabled="disabled" class="btn btn-success">Send</a>
+                </td>
+            }
+            else
+            {
+                <form method="post">
+                    <td>
+                        <button asp-page-handler="SendNewsletter" asp-route-newsletterId="@newsletter.NewsLetterId" class="btn btn-success">Send</button>
+                    </td>
+                </form>
+            }
+        </tr>
+    }
+    </tbody>
+</table>
+<a asp-page="./NewsletterCreate" class="btn btn-success">Create newsletter</a>
