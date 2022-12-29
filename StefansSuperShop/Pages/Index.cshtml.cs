@@ -23,13 +23,19 @@ namespace StefansSuperShop.Pages
         public List<TrendingCategory> TrendingCategories { get; set; }
 
         public List<Product> NewProducts { get; set; }
+
         public class Product
+        {
+            public string Category { get; set; }
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+        public List<Category> Categories { get; set; }
+        public class Category
         {
             public int Id { get; set; }
             public string Name { get; set; }
         }
-
-
 
         public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context)
         {
@@ -43,5 +49,13 @@ namespace StefansSuperShop.Pages
                 new TrendingCategory { Id = c.CategoryId, Name = c.CategoryName }
             ).ToList();
         }
+        public List<Category> GetCategories()
+        {
+            Categories = _context.Categories.Select(c =>
+                new Category { Id = c.CategoryId, Name = c.CategoryName }
+            ).ToList();
+            return Categories;
+        }
+        
     }
 }
