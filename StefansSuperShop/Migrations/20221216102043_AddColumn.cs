@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StefansSuperShop.Migrations
 {
-    public partial class e : Migration
+    public partial class AddColumn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -343,7 +343,9 @@ namespace StefansSuperShop.Migrations
                     SupplierID = table.Column<int>(type: "int", nullable: true),
                     CategoryID = table.Column<int>(type: "int", nullable: true),
                     QuantityPerUnit = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    UnitPrice = table.Column<decimal>(type: "money", nullable: true),
+                    CampingPrice = table.Column<decimal>(type: "money", nullable: true),
+                    Rating = table.Column<int>(type: "int", nullable: true),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     UnitsInStock = table.Column<short>(type: "smallint", nullable: true),
                     UnitsOnOrder = table.Column<short>(type: "smallint", nullable: true),
                     ReorderLevel = table.Column<short>(type: "smallint", nullable: true),
