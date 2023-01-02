@@ -15,7 +15,6 @@ namespace StefansSuperShop.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly ApplicationDbContext _context;
 
-
         public class TrendingCategory
         {
             public int Id { get; set; }
@@ -31,8 +30,6 @@ namespace StefansSuperShop.Pages
             public decimal? Price { get; set; }
         }
 
-
-
         public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context)
         {
             _logger = logger;
@@ -44,11 +41,6 @@ namespace StefansSuperShop.Pages
             TrendingCategories = _context.Categories.Take(3).Select(c =>
                 new TrendingCategory { Id = c.CategoryId, Name = c.CategoryName }
             ).ToList();
-        }
-
-        public ApplicationDbContext Get_context()
-        {
-            return _context;
         }
 
         public List<Product> GetNewProducts()
