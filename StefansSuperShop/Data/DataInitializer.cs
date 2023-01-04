@@ -176,7 +176,7 @@ namespace StefansSuperShop.Data
 
         private void AddCategoryIfNotExists(string name, string description)
         {
-            //if (_dbContext.Categories.Any(e => e.CategoryName == name)) return;
+            if (_dbContext.Categories.Any(e => e.CategoryName == name)) return;
             _dbContext.Categories.Add(new Categories
             {
                 CategoryName = name, Description = description,

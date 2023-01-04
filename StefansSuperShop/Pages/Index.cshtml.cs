@@ -34,6 +34,7 @@ namespace StefansSuperShop.Pages
             public int Id { get; set; }
             public string Name { get; set; }
             public decimal? Price { get; set; }
+            public string Category { get; set; }
         }
 
         public List<Category> Categories { get; set; }
@@ -52,9 +53,11 @@ namespace StefansSuperShop.Pages
 
         public List<Product> GetNewProducts()
         {
-            NewProducts = _context.Products.OrderByDescending(p => p.ProductId).Take(10)
-                .Select(p => new Product { Id = p.ProductId, Name = p.ProductName, Price = p.UnitPrice})
-                .ToList();
+            var products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.CategoryId,
+                (p, c) => new Product { Id = p.ProductId, Name = p.ProductName, Price = p.UnitPrice, Category = c.CategoryName }).ToList();
+
+            var newList = products.OrderByDescending(p => p.Id).Take(10).ToList();
+            NewProducts = newList;
 
             return NewProducts;
         }
@@ -66,6 +69,17 @@ namespace StefansSuperShop.Pages
                 .ToList();
 
             return Categories;
+        }
+
+        public List<Product> GetProductsByCategory(string cat)
+        {
+            var products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.CategoryId,
+                (p, c) => new Product { Id = p.ProductId, Name = p.ProductName, Price = p.UnitPrice, Category = c.CategoryName }).ToList();
+
+            var newList = products.Where(x => x.Category == cat).OrderByDescending(p => p.Id).Take(10).ToList();
+            NewProducts = newList;
+
+            return NewProducts;
         }
     }
 }
