@@ -22,9 +22,9 @@ public class NewsletterEditModel : PageModel
         _newsletterRepository = newsletterRepository;
     }
     
-    public void OnGet(int newsletterId)
+    public async void OnGet(int newsletterId)
     {
-        Newsletter = _newsletterRepository.GetNewsletter(newsletterId);
+        Newsletter = await _newsletterRepository.GetNewsletterAsync(newsletterId);
         
         Console.WriteLine(Newsletter);
     }

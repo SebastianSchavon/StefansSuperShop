@@ -29,20 +29,15 @@ public class NewslettersModel : PageModel
 
     public async void OnGet()
     {
-        var newsletters = _newsletterRepository.GetNewsletters();
+        var newsletters = await _newsletterRepository.GetNewslettersAsync();
 
         Newsletters = newsletters.ToList();
     }
 
-    // pass id of newsletter to send
-    // check if newsletter is already sent
     public async Task<IActionResult> OnPostSendNewsletter(int newsletterId)
     {
-        var newsletter = _newsletterRepository.GetNewsletter(newsletterId);
-
-        if (newsletter.NewsletterSent) ;
-        // display message that tells admin that the newsletter is already sent? send again?
-
+        var newsletter = await _newsletterRepository.GetNewsletterAsync(newsletterId);
+        
         var subscribers = await _subscriberRepository.GetSubscribers();
 
         foreach (var subscriber in subscribers)
@@ -59,10 +54,4 @@ public class NewslettersModel : PageModel
         return Redirect("./Newsletters");
     }
 
-    // public async Task<IEnumerable<Newsletter>> GetSentNewsletters()
-    // {
-    //     var sentNewsletters = _newsletterRepository.GetNewsletters();
-    //
-    //     return sentNewsletters.Where(x => x.NewsletterSent);
-    // }
 }

@@ -50,8 +50,6 @@ public class SubscribeToNewsletterEndpoints : PageModel
         if (user != null)
             await _userManager.AddToRoleAsync(user, "Subscriber");
 
-        await _signInManager.SignInAsync(user, false, null);
-        
         return Content("Thank you!");
     }
 
