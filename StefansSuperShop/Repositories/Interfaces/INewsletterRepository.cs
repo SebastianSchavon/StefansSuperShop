@@ -6,8 +6,8 @@ namespace StefansSuperShop.Repositories;
 
 public interface INewsletterRepository
 {
-    Newsletter GetNewsletter(int newsletterId);
-    IEnumerable<Newsletter> GetNewsletters();
+    Task<Newsletter> GetNewsletterAsync(int newsletterId);
+    Task<IEnumerable<Newsletter>> GetNewslettersAsync();
     Task CreateNewsletterAsync(Newsletter newsletter);
     Task EditNewsletterAsync(Newsletter newsletter);
 

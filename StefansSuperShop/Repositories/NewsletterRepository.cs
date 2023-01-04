@@ -16,17 +16,16 @@ public class NewsletterRepository : INewsletterRepository
         _dbContext = dbContext;
     }
 
-    public Newsletter GetNewsletter(int newsletterId)
+    public async Task<Newsletter> GetNewsletterAsync(int newsletterId)
     {
         return _dbContext.Newsletters.Include(x => x.SubscribersWhoReceivedNewsletter).FirstOrDefault(x => x.NewsLetterId == newsletterId);
     }
     
-    public IEnumerable<Newsletter> GetNewsletters()
+    public async Task<IEnumerable<Newsletter>> GetNewslettersAsync()
     {
         return _dbContext.Newsletters.Include(x => x.SubscribersWhoReceivedNewsletter);
     }
-    
-    // dont send email after creation, just add to database as "not sent" 
+
     public async Task CreateNewsletterAsync(Newsletter newsletter)
     {
         await _dbContext.Newsletters.AddAsync(newsletter);
