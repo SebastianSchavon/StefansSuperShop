@@ -15,7 +15,12 @@ namespace StefansSuperShop.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly ApplicationDbContext _context;
 
-
+        public class TopSelling
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+        public List<TopSelling> TopSellings { get; set; }
         public class TrendingCategory
         {
             public int Id { get; set; }
@@ -66,6 +71,13 @@ namespace StefansSuperShop.Pages
                 .Select(p => new Product { Id = p.ProductId, Name = p.ProductName, Price = p.UnitPrice, Category = p.Category })
                 .ToList();
             return NewProducts;
+        }
+        public List<TopSelling> GetTopSellings() //ändra sen
+        {
+            TopSellings = _context.TopSellings.Select(t =>
+            new TopSelling { Id = t.Id, Name = t.Name }
+            ).ToList();
+            return TopSellings;
         }
     }
 }
