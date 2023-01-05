@@ -12,14 +12,25 @@
 
 
     </div>
-    <div class="mb-3">
+    <div class="mb-3 mt-3">
         <label class="form-label">Unit Price</label>
         <input type="text" asp-for="Product.UnitPrice" class="form-control" required placeholder="Unit Price">
     </div>
-    <div class="mb-3">
+    <div class="mb-3 mt-3">
         <label class="form-label">Units In Stock</label>
         <input type="text" asp-for="Product.UnitsInStock" class="form-control" required placeholder="Units In Stock">
     </div>
+
+    <div class="mb-3 mt-3">
+        <label class="form-label">Rating</label>
+        <input type="text" asp-for="Product.Rating" class="form-control" required placeholder="Rating">
+    </div>
+
+    <div class="mb-3 mt-3">
+        <label class="form-label">Category Id</label>
+        <input type="text" asp-for="Product.CategoryId" class="form-control" required placeholder="CategoryId">
+    </div>
     <br />
-    <button type="submit" class="btn btn-success">Edits <i class="bi bi-plus-circle"></i></button>
+    <button type="submit" class="btn btn-success"> Update <i class="bi bi-plus-circle"></i></button>
+    <a class="btn btn-success" href="/Admin/Products" role="button">Product</a>
 </form>

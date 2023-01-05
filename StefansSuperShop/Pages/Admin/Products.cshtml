@@ -11,6 +11,8 @@
             <th scope="col">Price</th>
             <th scope="col">Stock level</th>
                 <th scope="col">Published</th>
+                <th scope="col">Rating</th>
+                <th scope="col">CategoryID</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -22,6 +24,8 @@
                 <td>@p.Price</td>
                 <td>@p.Stocklevel</td>
                     <td>@p.publish</td>
+                    <td>@p.Rating</td>
+                    <td>@p.CategoryID</td>
                 <td>
                         <a class="btn btn-primary btn-lg " role="button" href="/admin/Edit?id=@p.Id">Edit</a>
                         @*<a class="btn btn-primary " role="button" href="/admin/productedit?id=@p.Id">Edit</a>*@

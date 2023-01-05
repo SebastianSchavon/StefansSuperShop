@@ -20,6 +20,9 @@ namespace StefansSuperShop.Pages.Admin
             public decimal Price { get; set; }
             public int Stocklevel { get; set; }
             public DateTime publish { get; set; }
+            public int ?Rating { get; set; }
+
+            public int ?CategoryID { get; set; }
 
         }
 
@@ -36,8 +39,10 @@ namespace StefansSuperShop.Pages.Admin
                 Price = e.UnitPrice.Value,
                 Stocklevel = e.UnitsInStock.Value,
                 Id = e.ProductId,
-                publish = e.published
-
+                publish = e.published,
+                CategoryID =e.CategoryId.Value,
+                Rating = e.Rating.Value,
+                
             }).ToList();
         }
     }

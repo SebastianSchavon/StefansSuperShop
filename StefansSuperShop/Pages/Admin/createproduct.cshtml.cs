@@ -24,6 +24,8 @@ namespace StefansSuperShop.Pages.Admin
             var productName = Convert.ToString(Request.Form["productName"]);
             var unitPrice = Convert.ToDecimal(Request.Form["unitPrice"]);
             var unitsInStock = Convert.ToInt16(Request.Form["unitsInStock"]);
+            var Rating = Convert.ToUInt16(Request.Form["rating"]);
+            var categoryid = Convert.ToUInt16(Request.Form["categoryid"]);
             //var publish = Convert.ToDateTime(Request.Form["publish"]);
 
 
@@ -36,7 +38,9 @@ namespace StefansSuperShop.Pages.Admin
                     UnitPrice = unitPrice,
                     UnitsInStock = unitsInStock,
                     published = DateTime.Now,
-                });
+                    Rating = Rating,
+                    CategoryId = categoryid
+                }) ;
                 _context.SaveChanges();
             }
         }
