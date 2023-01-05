@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static StefansSuperShop.Pages.IndexModel;
 
 namespace StefansSuperShop.Data
 {
@@ -32,6 +33,7 @@ namespace StefansSuperShop.Data
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<Subscriber> Subscribers { get; set; }
         public virtual DbSet<Newsletter> Newsletters { get; set; }
+        public virtual DbSet<TopSelling> TopSellings { get; set; }  
 
     }
 }

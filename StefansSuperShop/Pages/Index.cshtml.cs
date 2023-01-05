@@ -68,7 +68,7 @@ namespace StefansSuperShop.Pages
         public List<Product> GetNewProducts()
         {
             NewProducts = _context.Products.OrderByDescending(p => p.ProductId).Take(10)
-                .Select(p => new Product { Id = p.ProductId, Name = p.ProductName, Price = p.UnitPrice, Category = p.Category })
+                .Select(p => new Product { Id = p.ProductId, Name = p.ProductName, Price = p.UnitPrice })
                 .ToList();
             return NewProducts;
         }
