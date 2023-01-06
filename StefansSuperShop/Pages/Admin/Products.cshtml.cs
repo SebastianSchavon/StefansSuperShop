@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,10 @@ namespace StefansSuperShop.Pages.Admin
             public string Name { get; set; }
             public decimal Price { get; set; }
             public int Stocklevel { get; set; }
+            public DateTime publish { get; set; }
+            public int ?Rating { get; set; }
+
+            public int ?CategoryID { get; set; }
 
         }
 
@@ -33,8 +38,11 @@ namespace StefansSuperShop.Pages.Admin
                 Name = e.ProductName,
                 Price = e.UnitPrice.Value,
                 Stocklevel = e.UnitsInStock.Value,
-                Id = e.ProductId
-
+                Id = e.ProductId,
+                publish = e.published,
+                CategoryID =e.CategoryId.Value,
+                Rating = e.Rating.Value,
+                
             }).ToList();
         }
     }

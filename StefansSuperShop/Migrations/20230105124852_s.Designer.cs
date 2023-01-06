@@ -12,8 +12,8 @@ using StefansSuperShop.Data;
 namespace StefansSuperShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221119060639_e")]
-    partial class e
+    [Migration("20230105124852_s")]
+    partial class s
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -488,6 +488,9 @@ namespace StefansSuperShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
+                    b.Property<decimal?>("CampingPrice")
+                        .HasColumnType("money");
+
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int")
                         .HasColumnName("CategoryID");
@@ -504,6 +507,9 @@ namespace StefansSuperShop.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int?>("Rating")
+                        .HasColumnType("int");
+
                     b.Property<short?>("ReorderLevel")
                         .HasColumnType("smallint");
 
@@ -512,13 +518,16 @@ namespace StefansSuperShop.Migrations
                         .HasColumnName("SupplierID");
 
                     b.Property<decimal?>("UnitPrice")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<short?>("UnitsInStock")
                         .HasColumnType("smallint");
 
                     b.Property<short?>("UnitsOnOrder")
                         .HasColumnType("smallint");
+
+                    b.Property<DateTime>("published")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ProductId");
 
