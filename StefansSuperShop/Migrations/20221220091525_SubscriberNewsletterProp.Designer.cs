@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StefansSuperShop.Data;
 
@@ -11,9 +12,10 @@ using StefansSuperShop.Data;
 namespace StefansSuperShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221220091525_SubscriberNewsletterProp")]
+    partial class SubscriberNewsletterProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -527,9 +529,6 @@ namespace StefansSuperShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
-                    b.Property<decimal?>("CampingPrice")
-                        .HasColumnType("money");
-
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int")
                         .HasColumnName("CategoryID");
@@ -546,9 +545,6 @@ namespace StefansSuperShop.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int?>("Rating")
-                        .HasColumnType("int");
-
                     b.Property<short?>("ReorderLevel")
                         .HasColumnType("smallint");
 
@@ -557,16 +553,13 @@ namespace StefansSuperShop.Migrations
                         .HasColumnName("SupplierID");
 
                     b.Property<decimal?>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<short?>("UnitsInStock")
                         .HasColumnType("smallint");
 
                     b.Property<short?>("UnitsOnOrder")
                         .HasColumnType("smallint");
-
-                    b.Property<DateTime>("published")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("ProductId");
 
