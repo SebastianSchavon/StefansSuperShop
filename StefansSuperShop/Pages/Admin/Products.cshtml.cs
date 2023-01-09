@@ -23,6 +23,7 @@ namespace StefansSuperShop.Pages.Admin
             public int ?Rating { get; set; }
 
             public int ?CategoryID { get; set; }
+            public decimal ?CampingPrice { get; set; }
 
         }
 
@@ -42,6 +43,7 @@ namespace StefansSuperShop.Pages.Admin
                 publish = e.published,
                 CategoryID =e.CategoryId.Value,
                 Rating = e.Rating.Value,
+                CampingPrice = e.CampingPrice .Value,
                 
             }).ToList();
         }

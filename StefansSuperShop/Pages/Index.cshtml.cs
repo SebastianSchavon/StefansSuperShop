@@ -35,6 +35,8 @@ namespace StefansSuperShop.Pages
             public string Name { get; set; }
             public decimal? Price { get; set; }
             public string Category { get; set; }
+            public decimal? CampingPrice { get; set; }
+            public int? Rating { get; set; }
         }
 
         public List<Category> Categories { get; set; }
@@ -54,7 +56,7 @@ namespace StefansSuperShop.Pages
         public List<Product> GetNewProducts()
         {
             var products = _context.Products.Join(_context.Categories, p => p.CategoryId, c => c.CategoryId,
-                (p, c) => new Product { Id = p.ProductId, Name = p.ProductName, Price = p.UnitPrice, Category = c.CategoryName }).ToList();
+                (p, c) => new Product { Id = p.ProductId, Name = p.ProductName, Price = p.UnitPrice, Category = c.CategoryName, CampingPrice = p.CampingPrice, Rating=p.Rating }).ToList();
 
             var newList = products.OrderByDescending(p => p.Id).Take(10).ToList();
             NewProducts = newList;

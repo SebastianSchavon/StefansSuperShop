@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StefansSuperShop.Migrations
 {
-    public partial class AddColumn : Migration
+    public partial class n : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -119,6 +119,22 @@ namespace StefansSuperShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Newsletters",
+                columns: table => new
+                {
+                    NewsletterID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NewsletterSent = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Newsletters", x => x.NewsletterID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Region",
                 columns: table => new
                 {
@@ -143,6 +159,19 @@ namespace StefansSuperShop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Shippers", x => x.ShipperID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subscribers",
+                columns: table => new
+                {
+                    SubscriberID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscribers", x => x.SubscriberID);
                 });
 
             migrationBuilder.CreateTable(
@@ -334,12 +363,37 @@ namespace StefansSuperShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "NewsletterSubscriber",
+                columns: table => new
+                {
+                    ReceivedNewslettersNewsLetterId = table.Column<int>(type: "int", nullable: false),
+                    SubscribersWhoReceivedNewsletterSubscriberId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NewsletterSubscriber", x => new { x.ReceivedNewslettersNewsLetterId, x.SubscribersWhoReceivedNewsletterSubscriberId });
+                    table.ForeignKey(
+                        name: "FK_NewsletterSubscriber_Newsletters_ReceivedNewslettersNewsLetterId",
+                        column: x => x.ReceivedNewslettersNewsLetterId,
+                        principalTable: "Newsletters",
+                        principalColumn: "NewsletterID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_NewsletterSubscriber_Subscribers_SubscribersWhoReceivedNewsletterSubscriberId",
+                        column: x => x.SubscribersWhoReceivedNewsletterSubscriberId,
+                        principalTable: "Subscribers",
+                        principalColumn: "SubscriberID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     ProductID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    published = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SupplierID = table.Column<int>(type: "int", nullable: true),
                     CategoryID = table.Column<int>(type: "int", nullable: true),
                     QuantityPerUnit = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
@@ -438,6 +492,11 @@ namespace StefansSuperShop.Migrations
                 column: "ReportsTo");
 
             migrationBuilder.CreateIndex(
+                name: "IX_NewsletterSubscriber_SubscribersWhoReceivedNewsletterSubscriberId",
+                table: "NewsletterSubscriber",
+                column: "SubscribersWhoReceivedNewsletterSubscriberId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Order Details_ProductID",
                 table: "Order Details",
                 column: "ProductID");
@@ -491,6 +550,9 @@ namespace StefansSuperShop.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "NewsletterSubscriber");
+
+            migrationBuilder.DropTable(
                 name: "Order Details");
 
             migrationBuilder.DropTable(
@@ -501,6 +563,12 @@ namespace StefansSuperShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Newsletters");
+
+            migrationBuilder.DropTable(
+                name: "Subscribers");
 
             migrationBuilder.DropTable(
                 name: "Orders");
