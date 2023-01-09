@@ -27,6 +27,7 @@ namespace StefansSuperShop.Pages.Admin
             var Rating = Convert.ToUInt16(Request.Form["rating"]);
             var categoryid = Convert.ToUInt16(Request.Form["categoryid"]);
             //var publish = Convert.ToDateTime(Request.Form["publish"]);
+            var CampingPrice = Convert.ToDecimal(Request.Form["campingprice"]);
 
 
 
@@ -39,7 +40,8 @@ namespace StefansSuperShop.Pages.Admin
                     UnitsInStock = unitsInStock,
                     published = DateTime.Now,
                     Rating = Rating,
-                    CategoryId = categoryid
+                    CategoryId = categoryid,
+                    CampingPrice = CampingPrice,
                 }) ;
                 _context.SaveChanges();
             }
