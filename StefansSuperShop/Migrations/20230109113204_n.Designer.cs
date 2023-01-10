@@ -12,14 +12,14 @@ using StefansSuperShop.Data;
 namespace StefansSuperShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221119060639_e")]
-    partial class e
+    [Migration("20230109113204_n")]
+    partial class n
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.11")
+                .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -226,6 +226,21 @@ namespace StefansSuperShop.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("NewsletterSubscriber", b =>
+                {
+                    b.Property<int>("ReceivedNewslettersNewsLetterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubscribersWhoReceivedNewsletterSubscriberId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReceivedNewslettersNewsLetterId", "SubscribersWhoReceivedNewsletterSubscriberId");
+
+                    b.HasIndex("SubscribersWhoReceivedNewsletterSubscriberId");
+
+                    b.ToTable("NewsletterSubscriber");
+                });
+
             modelBuilder.Entity("StefansSuperShop.Data.Categories", b =>
                 {
                     b.Property<int>("CategoryId")
@@ -385,6 +400,32 @@ namespace StefansSuperShop.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("StefansSuperShop.Data.Newsletter", b =>
+                {
+                    b.Property<int>("NewsLetterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("NewsletterID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NewsLetterId"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("NewsletterSent")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NewsLetterId");
+
+                    b.ToTable("Newsletters");
+                });
+
             modelBuilder.Entity("StefansSuperShop.Data.OrderDetails", b =>
                 {
                     b.Property<int>("OrderId")
@@ -488,6 +529,9 @@ namespace StefansSuperShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
+                    b.Property<decimal?>("CampingPrice")
+                        .HasColumnType("money");
+
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int")
                         .HasColumnName("CategoryID");
@@ -504,6 +548,9 @@ namespace StefansSuperShop.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int?>("Rating")
+                        .HasColumnType("int");
+
                     b.Property<short?>("ReorderLevel")
                         .HasColumnType("smallint");
 
@@ -512,13 +559,16 @@ namespace StefansSuperShop.Migrations
                         .HasColumnName("SupplierID");
 
                     b.Property<decimal?>("UnitPrice")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<short?>("UnitsInStock")
                         .HasColumnType("smallint");
 
                     b.Property<short?>("UnitsOnOrder")
                         .HasColumnType("smallint");
+
+                    b.Property<DateTime>("published")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ProductId");
 
@@ -569,6 +619,24 @@ namespace StefansSuperShop.Migrations
                     b.HasKey("ShipperId");
 
                     b.ToTable("Shippers");
+                });
+
+            modelBuilder.Entity("StefansSuperShop.Data.Subscriber", b =>
+                {
+                    b.Property<int>("SubscriberId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("SubscriberID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubscriberId"), 1L, 1);
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SubscriberId");
+
+                    b.ToTable("Subscribers");
                 });
 
             modelBuilder.Entity("StefansSuperShop.Data.Suppliers", b =>
@@ -699,6 +767,21 @@ namespace StefansSuperShop.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("NewsletterSubscriber", b =>
+                {
+                    b.HasOne("StefansSuperShop.Data.Newsletter", null)
+                        .WithMany()
+                        .HasForeignKey("ReceivedNewslettersNewsLetterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StefansSuperShop.Data.Subscriber", null)
+                        .WithMany()
+                        .HasForeignKey("SubscribersWhoReceivedNewsletterSubscriberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

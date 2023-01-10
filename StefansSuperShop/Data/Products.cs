@@ -18,6 +18,7 @@ namespace StefansSuperShop.Data
         [Required]
         [StringLength(40)]
         public string ProductName { get; set; }
+        public DateTime published { get; set; }   
         [Column("SupplierID")]
         public int? SupplierId { get; set; }
         [Column("CategoryID")]
@@ -25,6 +26,10 @@ namespace StefansSuperShop.Data
         [StringLength(20)]
         public string QuantityPerUnit { get; set; }
         [Column(TypeName = "money")]
+
+        public decimal? CampingPrice { get; set; }
+
+        public int? Rating { get; set; }
         public decimal? UnitPrice { get; set; }
         public short? UnitsInStock { get; set; }
         public short? UnitsOnOrder { get; set; }

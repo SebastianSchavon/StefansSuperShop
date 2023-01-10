@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using StefansSuperShop.Helpers
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
@@ -8,9 +9,13 @@
         <li>
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa fa-user-o"></i> Mitt konto!</a>
         </li>
-        <li>
-            <a class="nav-link text-dark" asp-page="/Admin/Index" title="Admin"><i class="fa fa-user-o"></i> Admin</a>
-        </li>
+        @if (User.IsInAnyRole("Admin"))
+        {
+            <li>
+                <a class="nav-link text-dark" asp-page="/Admin/Index" title="Admin"><i class="fa fa-user-o"></i> Admin</a>
+            </li>
+
+        }
 
         <li>
             <form class="form-inline" asp-area="Identity"  asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("Home", new { area = "" })">
