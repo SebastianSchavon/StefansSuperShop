@@ -28,7 +28,6 @@ public class SubscribeToNewsletterEndpoints : PageModel
         _subscriberRepository = subscriberRepository;
     }
     
-
     public async Task<IActionResult> OnPostSubscribe(string emailAddress)
     {
         var validateEmailRegex = new Regex("^\\S+@\\S+\\.\\S+$");

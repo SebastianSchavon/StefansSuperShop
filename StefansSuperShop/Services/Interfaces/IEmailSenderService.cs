@@ -2,5 +2,5 @@
 
 public interface IEmailSenderService
 {
-    void SendEmail(string fromName, string header, string message);
+    void SendEmail(string fromName, string header, string message, string reciever);
 }

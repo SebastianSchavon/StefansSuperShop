@@ -42,7 +42,7 @@ public class NewslettersModel : PageModel
 
         foreach (var subscriber in subscribers)
         {
-            _emailSenderService.SendEmail("stefan@newsletter.com", newsletter.Title, newsletter.Content);
+            _emailSenderService.SendEmail("stefan@newsletter.com", newsletter.Title, newsletter.Content, subscriber.EmailAddress);
             newsletter.SubscribersWhoReceivedNewsletter.Add(subscriber);
             subscriber.ReceivedNewsletters.Add(newsletter);
         }

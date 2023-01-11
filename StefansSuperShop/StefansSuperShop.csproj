@@ -27,4 +27,10 @@
     <_ContentIncludedByDefault Remove="Pages\Components\Newsletter\Default.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Pages\SubscribeToNewsletterEndpoints.cshtml.cs">
+      <DependentUpon>SubscribeToNewsletterEndpoints.cshtml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

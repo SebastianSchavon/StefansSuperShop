@@ -15,13 +15,13 @@ public class EmailSenderService : IEmailSenderService
         _settings = mailSettings.Value;
     }
 
-    public void SendEmail(string fromName, string header, string message)
+    public void SendEmail(string fromName, string header, string message, string receiver)
     {
         var mail = new MimeMessage();
 
         mail.Sender = new MailboxAddress(_settings.DisplayName, _settings.From);
 
-        mail.To.Add(MailboxAddress.Parse("billgates@microsoft.com"));
+        mail.To.Add(MailboxAddress.Parse(receiver));
         
         var body = new BodyBuilder();
         mail.Subject = header;
